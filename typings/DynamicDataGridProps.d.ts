@@ -4,7 +4,8 @@
  * @author Mendix Widgets Framework Team
  */
 import { ComponentType, CSSProperties, ReactNode } from "react";
-import { DynamicValue, ListValue, ListActionValue, ListAttributeValue, ListExpressionValue, ListReferenceValue, ListWidgetValue } from "mendix";
+import { DynamicValue, EditableValue, ListValue, ListActionValue, ListAttributeValue, ListExpressionValue, ListReferenceValue, ListWidgetValue } from "mendix";
+import { Big } from "big.js";
 
 export type ShowCellAsEnum = "attribute" | "dynamicText" | "custom";
 
@@ -19,6 +20,8 @@ export type RenderAsEnum = "grid" | "table";
 export type PagingEnum = "none" | "row" | "column";
 
 export type PagingPositionEnum = "bottom" | "top" | "both";
+
+export type PageSizeTypeEnum = "static" | "dynamic";
 
 export type ShowEmptyPlaceholderEnum = "none" | "custom";
 
@@ -47,6 +50,7 @@ export interface DynamicDataGridContainerProps {
     referenceColumn: ListReferenceValue;
     dataSourceColumn: ListValue;
     showHeaderAs: ShowHeaderAsEnum;
+    columnsSortable: boolean;
     headerAttribute: ListAttributeValue<string>;
     headerWidgets: ListWidgetValue;
     headerTextTemplate: ListExpressionValue<string>;
@@ -59,6 +63,8 @@ export interface DynamicDataGridContainerProps {
     renderAs: RenderAsEnum;
     paging: PagingEnum;
     pagingPosition: PagingPositionEnum;
+    pageSizeType: PageSizeTypeEnum;
+    dynamicPageSize: EditableValue<Big>;
     pageSize: number;
     pageCell: boolean;
     showEmptyPlaceholder: ShowEmptyPlaceholderEnum;
@@ -93,6 +99,7 @@ export interface DynamicDataGridPreviewProps {
     referenceColumn: string;
     dataSourceColumn: {} | { caption: string } | { type: string } | null;
     showHeaderAs: ShowHeaderAsEnum;
+    columnsSortable: boolean;
     headerAttribute: string;
     headerWidgets: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     headerTextTemplate: string;
@@ -105,6 +112,8 @@ export interface DynamicDataGridPreviewProps {
     renderAs: RenderAsEnum;
     paging: PagingEnum;
     pagingPosition: PagingPositionEnum;
+    pageSizeType: PageSizeTypeEnum;
+    dynamicPageSize: string;
     pageSize: number | null;
     pageCell: boolean;
     showEmptyPlaceholder: ShowEmptyPlaceholderEnum;

@@ -1,16 +1,21 @@
-import { createElement, ReactNode, ReactElement } from "react";
+import { ReactNode, ReactElement, createElement } from "react";
 import classNames from "classnames";
 import { RenderAsEnum } from "typings/DynamicDataGridProps";
+import { ColumnResizer } from "./ColumnResizer";
 
-interface RowHeaderProps {
+interface HeaderProps {
     children: ReactNode;
     className?: string;
     key: string;
     onClick?: () => void;
     renderAs: RenderAsEnum;
+    columnWidths: string[];
+    index: number;
+    handleSetColumnWidth: (index: number, width: number) => void;
+    resizable: boolean;
 }
 
-export function Header(props: RowHeaderProps): ReactElement {
+export function Header(props: HeaderProps): ReactElement {
     if (props.renderAs === "grid") {
         return (
             <div
@@ -18,9 +23,16 @@ export function Header(props: RowHeaderProps): ReactElement {
                 role="columnheader"
                 key={props.key}
                 onClick={props.onClick}
+                style={{ width: props.columnWidths[props.index] }}
             >
                 <div className="column-container">
                     <div className="column-header align-column-left">{props.children}</div>
+                    {props.resizable && (
+                        <ColumnResizer
+                            minWidth={50}
+                            setColumnWidth={newWidth => props.handleSetColumnWidth(props.index, newWidth)}
+                        />
+                    )}
                 </div>
             </div>
         );

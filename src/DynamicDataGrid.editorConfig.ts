@@ -133,6 +133,12 @@ export function getProperties(
         hidePropertiesIn(defaultProperties, values, ["cellWidgets"]);
         hidePropertiesIn(defaultProperties, values, ["cellAttribute"]);
     }
+    if (values.pageSizeType === "dynamic") {
+        hidePropertiesIn(defaultProperties, values, ["pageSize"]);
+    }
+    if (values.pageSizeType === "static") {
+        hidePropertiesIn(defaultProperties, values, ["dynamicPageSize"]);
+    }
     if (values.showEmptyPlaceholder === "none") {
         hidePropertiesIn(defaultProperties, values, ["emptyPlaceholder"]);
     }

@@ -138,6 +138,10 @@
                         <enumerationValue key="custom">Custom content</enumerationValue>
                     </enumerationValues>
                 </property>
+                <property key="columnsSortable" type="boolean" defaultValue="true">
+                    <caption>Sorting</caption>
+                    <description>Enable sorting for all columns</description>
+                </property>
                 <property key="headerAttribute" type="attribute" dataSource="dataSourceColumn">
                     <caption>Attribute</caption>
                     <description />
@@ -223,6 +227,21 @@
                     <enumerationValue key="top">Above grid</enumerationValue>
                     <enumerationValue key="both">Both</enumerationValue>
                 </enumerationValues>
+            </property>
+            <property key="pageSizeType" type="enumeration" defaultValue="static">
+                <caption>Pagination</caption>
+                <description />
+                <enumerationValues>
+                    <enumerationValue key="static">Static</enumerationValue>
+                    <enumerationValue key="dynamic">Dynamic</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="dynamicPageSize" type="attribute" required="true">
+                <caption>PageSize</caption>
+                <description>Select an attribute for dynamic page size.</description>
+                <attributeTypes>
+                    <attributeType name="Integer" />
+                </attributeTypes>
             </property>
             <property key="pageSize" type="integer" defaultValue="20">
                 <caption>Page size</caption>

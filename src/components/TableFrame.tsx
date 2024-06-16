@@ -1,44 +1,39 @@
 import { createElement, ReactNode, ReactElement, CSSProperties } from "react";
 import classNames from "classnames";
 import { RenderAsEnum, PagingPositionEnum } from "typings/DynamicDataGridProps";
+import { DynamicDataGridContainerProps } from "../../typings/DynamicDataGridProps";
 
-interface TableFrameProps {
+interface TableFrameProps extends DynamicDataGridContainerProps {
     children: ReactNode;
     className: string;
     style?: CSSProperties | undefined;
     columnCount: number;
     renderAs: RenderAsEnum;
     pagingPosition: PagingPositionEnum;
-    paging: boolean;
     pagination: ReactNode;
+    columnWidths: string[];
+    handleSetColumnWidth: (index: number, width: number) => void;
 }
 
 export function TableFrame(props: TableFrameProps): ReactElement {
-    if (props.renderAs === "grid") {
-        const rowStyle = { gridTemplateColumns: "1fr ".repeat(props.columnCount) };
-        return (
-            <div className={classNames(props.className, "widget-dynamic-data-grid")} style={props.style}>
-                <div className="table-header">
-                    {props.paging &&
-                        (props.pagingPosition === "top" || props.pagingPosition === "both") &&
-                        props.pagination}
-                </div>
-                <div className="table" role="table">
-                    <div className="table-content" role="rowgroup" style={rowStyle}>
-                        {props.children}
-                    </div>
-                </div>
-                <div className="table-footer">
-                    {props.paging &&
-                        (props.pagingPosition === "bottom" || props.pagingPosition === "both") &&
-                        props.pagination}
+    const { children, className, style, pagingPosition, pagination, columnWidths } = props;
+    console.log(columnWidths);
+
+    const rowStyle = { gridTemplateColumns: columnWidths.join(" ") };
+
+    return (
+        <div className={classNames(className, "widget-dynamic-data-grid")} style={style}>
+            <div className="table-header">
+                {props.paging !== "none" && (pagingPosition === "top" || pagingPosition === "both") && pagination}
+            </div>
+            <div className="table" role="table">
+                <div className="table-content" role="rowgroup" style={rowStyle}>
+                    {children}
                 </div>
             </div>
-        );
-    }
-    return (
-        <table className={classNames(props.className, "widget-dynamic-data-grid")} style={props.style}>
-            {props.children}
-        </table>
+            <div className="table-footer">
+                {props.paging !== "none" && (pagingPosition === "bottom" || pagingPosition === "both") && pagination}
+            </div>
+        </div>
     );
 }
