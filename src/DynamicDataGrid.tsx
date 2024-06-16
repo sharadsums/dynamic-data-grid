@@ -22,7 +22,6 @@ export default function DynamicDataGrid(props: DynamicDataGridContainerProps): R
 
     const columnCount = dataSourceColumn.items?.length || 0;
     const [columnWidths, setColumnWidths] = useState(Array(columnCount).fill("1fr"));
-    const [sortedData, setSortedData] = useState(rows);
 
     const handleSetColumnWidth = (index: number, width: number) => {
         const newWidths = [...columnWidths];
@@ -151,7 +150,7 @@ export default function DynamicDataGrid(props: DynamicDataGridContainerProps): R
                     }
                 </Row>
             )}
-            {sortedData.map((row, rowIndex) => (
+            {rows.map((row, rowIndex) => (
                 <Row className={rowClass?.get(row).value ?? ""} key={row.id} renderAs={renderAs}>
                     <Cells {...props} row={row} rowIndex={rowIndex} loading={loading} />
                 </Row>
